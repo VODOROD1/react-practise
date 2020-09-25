@@ -7,25 +7,29 @@ const Dialogs = (props) => {
 
   let newPostElement = React.createRef();
 
-  let addPost = () => {
+  let addMessage = () => {
+    props.addMessage();
+  }
+
+  let updateNewMessageText = () => {
     let text = newPostElement.current.value;
-    alert(text);
+    props.updateNewMessageText(text);
   }
 
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
         <ul>
-          {props.state.dialogs.map((dialog) => (<DialogItem name={dialog.name} id={dialog.id}/>))}
+          {props.dialogsPage.dialogs.map((dialog) => (<DialogItem name={dialog.name} id={dialog.id}/>))}
         </ul>
       </div>
       <div className={s.messages}>
-        {props.state.messages.map((elem) => (<Message message={elem.message} />))}
+        {props.dialogsPage.messages.map((elem) => (<Message message={elem.message} />))}
       </div>
       <div>
-        <textarea ref={newPostElement}></textarea>
+        <textarea ref={newPostElement} onChange={updateNewMessageText} value={props.dialogsPage.newMessageText} />
         <div>
-          <button onClick={addPost}>Add post</button>
+          <button onClick={addMessage}>Add message</button>
         </div>
       </div>
     </div>

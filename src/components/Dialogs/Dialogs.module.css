@@ -6,22 +6,22 @@
   display: inline-block;
   width: 20%;
   color: white;
+  vertical-align: top;
+  margin: 10px 0px;
+}
+
+.dialogsItems ul{
+  margin: 0;
 }
 
 .dialogsItems .active {
   color: gold;
 }
 
-.dialog {
-
-}
-
 .messages {
   display: inline-block;
   width: 80%;
-}
-
-.message {
-  color: white;
+  vertical-align: top;
+  margin: 10px 0px;
 }
 
