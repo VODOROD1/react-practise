@@ -4,19 +4,26 @@ import s from './MyPosts.module.css';
 
 const MyPosts = (props) => {
 
-  // let posts = [
-  //   {id: 1, message: 'Hi, how are you?', likesCount: 12},
-  //   {id: 2, message: "It's my first post", likesCount: 11},
-  //   {id: 2, message: "BlaBla", likesCount: 13},
-  //   {id: 2, message: "Dada", likesCount: 14}
-  // ]
+  let newPostElement = React.createRef();
+  let currentText;
+
+  let addPost = () => {
+    props.addPost();
+  };
+
+let onPostChange = () => {
+  let text = newPostElement.current.value;
+  props.updateNewPostText(text);
+  console.log(text);
+}
+
   return (
     <div className={s.postsBlock}>
       <h3>My posts</h3>
       <div>
-        <textarea></textarea>
+        <textarea ref={newPostElement} onChange={onPostChange} value={props.newPostText} />
         <div>
-          <button>Add post</button>
+          <button onClick={addPost}>Add post</button>
         </div>
       </div>
       <div className={s.posts}>

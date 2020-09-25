@@ -5,6 +5,7 @@
 .item a{
   color: white;
   text-decoration: none;
+  margin-left: 20px;
 }
 /* .item a:active {
   color: gold;
