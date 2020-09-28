@@ -13,3 +13,7 @@
 .item a.active {
   color: gold;
 }
+
+.item a:hover {
+  color: lightblue;
+}
