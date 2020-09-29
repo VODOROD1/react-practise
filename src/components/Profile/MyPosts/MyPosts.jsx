@@ -4,7 +4,9 @@ import s from './MyPosts.module.css';
 
 const MyPosts = (props) => {
 
-  let postsElements = props.posts.map((post) => (<Post message={post.message} likesCount={post.likesCount} />));
+  console.log(props.a);
+
+  let postsElements = props.profilePage.posts.map((post) => (<Post message={post.message} likesCount={post.likesCount} key={post.id} />));
 
   let newPostElement = React.createRef();
 
@@ -21,13 +23,12 @@ const MyPosts = (props) => {
     <div className={s.postsBlock}>
       <h3>My posts</h3>
       <div>
-        <textarea ref={newPostElement} onChange={onPostChange} value={props.newPostText} />
+        <textarea ref={newPostElement} onChange={onPostChange} value={props.profilePage.newPostText} />
         <div>
           <button onClick={onAddPost}>Add post</button>
         </div>
       </div>
       <div className={s.posts}>
-        {/* {posts.map((post) => (<Post message={post.message} likesCount={post.likesCount} />))} */}
         {postsElements}
       </div>
     </div>
@@ -35,5 +36,3 @@ const MyPosts = (props) => {
 }
 
 export default MyPosts;
-
-{/* <img src='https://avatars.mds.yandex.net/get-pdb/2836975/16b3f1c0-9479-4572-8483-06d49fcf5970/s1200'/> */}
