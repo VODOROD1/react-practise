@@ -1,8 +1,24 @@
 
 import { connect } from 'react-redux';
 // подключение экшенов
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/profile-reducer.js';
+import {addPost, updateNewPostText} from '../../../redux/profile-reducer.js';
 import MyPosts from './MyPosts.jsx';
+
+let mapStateToProps = (state) => {
+  return {
+    profilePage: state.profilePage,
+  }
+}
+
+export default connect(mapStateToProps, {
+  addPost,
+  updateNewPostText 
+})(MyPosts);
+
+
+
+
+
 
 // const MyPostsContainer = (props) => {
 
@@ -34,27 +50,21 @@ import MyPosts from './MyPosts.jsx';
 //   )
 // };
 
-let mapStateToProps = (state) => {
 
-  return {
-    profilePage: state.profilePage,
-  }
-}
+// export default MyPostsContainer;
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    addPost: () => {
-      let action = addPostActionCreator();
-      dispatch(action);
-    },
+//Теперь mapDispatchToProps не используется, т.к. мы напрямую
+// передаем объект в connect
+// let mapDispatchToProps = (dispatch) => {
+//   return {
+//     addPost: () => {
+//       let action = addPost();
+//       dispatch(action);
+//     },
   
-    updateNewPostText: (text) => {
-      let action = updateNewPostTextActionCreator(text);
-      dispatch(action);
-    } 
-  }
-}
-
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
-
-export default MyPostsContainer;
+//     updateNewPostText: (text) => {
+//       let action = updateNewPostText(text);
+//       dispatch(action);
+//     } 
+//   }
+// }

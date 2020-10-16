@@ -1,7 +1,22 @@
 // подключение экшенов
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogs-reducer.js';
+import {addMessage, updateNewMessageText} from '../../redux/dialogs-reducer.js';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
+
+let mapStateToProps = (state) => {
+  return {
+    dialogsPage: state.dialogsPage
+  }
+}
+
+export default connect(mapStateToProps, {
+  addMessage,
+  updateNewMessageText
+})(Dialogs);
+
+
+
+
 
 // const DialogsContainer = (props) => {
   
@@ -30,25 +45,21 @@ import { connect } from 'react-redux';
 //   );
 // };
 
-let mapStateToProps = (state) => {
-  return {
-    dialogsPage: state.dialogsPage
-  }
-}
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    addMessage: () => {
-      let action = addMessageActionCreator();
-      dispatch(action);
-    },
-    updateNewMessageText: (text) => {
-      let action = updateNewMessageTextActionCreator(text);
-      dispatch(action);
-    }
-  }
-}
+// export default DialogsContainer;
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
-export default DialogsContainer;
+//Теперь mapDispatchToProps не используется, т.к. мы напрямую
+// передаем объект в connect
+// let mapDispatchToProps = (dispatch) => {
+//   return {
+//     addMessage: () => {
+//       let action = addMessage();
+//       dispatch(action);
+//     },
+//     updateNewMessageText: (text) => {
+//       let action = updateNewMessageText(text);
+//       dispatch(action);
+//     }
+//   }
+// }

@@ -1,4 +1,6 @@
-// покупатель
+// http://somesocial-network.com
+// c9b54444-ee09-4411-9c99-a8cc3fdfb8d8
+
 import './index.css';
 import store from './redux/redux-store.js';       // импорт STORE
 import * as serviceWorker from './serviceWorker';
