@@ -24,7 +24,8 @@ let Users = (props) => {
           )
         })}
       </div>
-      {props.users.map((user) => {return (<User state={user} key={user.id} 
+      {props.users.map((user) => {return (<User state={user} key={user.id}
+            followingInProgress={props.followingInProgress}
             follow={props.follow} 
             unfollow={props.unfollow} />)})}
     </div>
