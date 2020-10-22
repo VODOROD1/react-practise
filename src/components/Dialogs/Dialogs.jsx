@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from './Message/Message';
+import {Redirect} from 'react-router-dom'; 
 
 const Dialogs = (props) => {
   let newPostElement = React.createRef();
@@ -18,6 +19,10 @@ const Dialogs = (props) => {
   let dialogsElements = props.dialogsPage.dialogs.map((dialog) => (<DialogItem name={dialog.name} key={dialog.id} id={dialog.id}/>));
   let messagesElements = props.dialogsPage.messages.map((message) => (<Message message={message.message} key={message.id} />));
   
+  if(!props.isAuth) {
+    return <Redirect to={'/login'} />
+  }
+
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>

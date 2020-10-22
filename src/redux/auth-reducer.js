@@ -1,4 +1,4 @@
-import {usersAPI} from '../api/api';
+import {authAPI} from '../api/api';
 
 const SET_USER_DATA = 'SET-USER-DATA';
 
@@ -29,9 +29,9 @@ export const setAuthUserData = (userId,email,login) => ({type: SET_USER_DATA,
   data: {userId,email,login} })
 
 // Далее идет санка
-export const auth = () => {
+export const getAuthUserData = () => {
   return dispatch => {
-    usersAPI.auth().then(data => {
+    authAPI.me().then(data => {
       dispatch(setAuthUserData(data.data.id, data.data.email, data.data.login))
     })
   }

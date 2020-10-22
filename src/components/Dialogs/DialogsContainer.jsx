@@ -1,7 +1,11 @@
-// подключение экшенов
+import React from 'react';
+import {compose} from 'redux';
 import {addMessage, updateNewMessageText} from '../../redux/dialogs-reducer.js';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+
+let AuthRedirectComponent = withAuthRedirect(Dialogs);
 
 let mapStateToProps = (state) => {
   return {
@@ -9,10 +13,19 @@ let mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {
-  addMessage,
-  updateNewMessageText
-})(Dialogs);
+let mapDispatchToProp = (dispatch) => {
+  return {
+    addMessage,
+    updateNewMessageText
+  };
+}
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProp),
+  withAuthRedirect
+)(Dialogs);
+
+export default connect(mapStateToProps, mapDispatchToProp)(AuthRedirectComponent);
 
 
 

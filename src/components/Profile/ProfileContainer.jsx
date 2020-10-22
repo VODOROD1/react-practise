@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
 import Profile from './Profile';
-import {getProfile} from '../../redux/profile-reducer.js';
+import {getUserProfile} from '../../redux/profile-reducer.js';
 import { withRouter } from 'react-router-dom';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 class ProfileContainer extends React.Component {
 
@@ -12,10 +14,11 @@ class ProfileContainer extends React.Component {
       userId = 2;
     }
     //  обращаемся к серверу
-    this.props.getProfile(userId);
+    this.props.getUserProfile(userId);
   }
 
   render() {
+    
     return (
         <Profile {...this.props} />
         // profile={this.props.profile}
@@ -27,9 +30,17 @@ let mapStateToProps = (state) => ({
   profile: state.profilePage.profile
 })
 
-// используем специальный HOC, который позволяет достучаться до URL
-let WithUrlDataContainerComponent = withRouter(ProfileContainer);
+let mapDispatchToProp = (dispatch) => ({
+  getUserProfile
+})
 
-export default connect(mapStateToProps,{
-  getProfile
-})(WithUrlDataContainerComponent);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProp),
+  withRouter,
+  withAuthRedirect
+)(ProfileContainer)
+
+let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
+
+// используем специальный HOC, который позволяет получить доступ к параметрам URL
+let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);

@@ -69,7 +69,7 @@ export const setUserProfile = (profile) => {
 }
 
 // Далее идет санка
-export const getProfile = (userId) => {
+export const getUserProfile = (userId) => {
   return dispatch => {
     usersAPI.getProfile(userId)
             .then(data => {
