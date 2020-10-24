@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
 import Users from "./Users";
 import { follow, unfollow, setCurrentPage, getUsers } from '../../redux/users-reducer';
 import Preloader from '../common/Preloader/Preloader.js';
@@ -48,12 +49,25 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {
+let mapDispatchToProps = {
   follow,
   unfollow,
   setCurrentPage,
   getUsers // Это thunkCreator
-})(UsersContainer);
+}
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
+)(UsersContainer)
+
+// export default compose(
+//   connect(mapStateToProps, mapDispatchToProps),
+//   withAuthRedirect
+// )(UsersContainer)
+
+// export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+
 
 
 

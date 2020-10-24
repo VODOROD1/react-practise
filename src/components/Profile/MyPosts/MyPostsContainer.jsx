@@ -10,10 +10,12 @@ let mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {
+let mapDispatchToProps = {
   addPost,
   updateNewPostText 
-})(MyPosts);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 
 

@@ -16,18 +16,9 @@ export const authAPI = {
 }
 
 export const usersAPI = {
-  getProfile(userId) {
-    return instance.get(`profile/${userId}`)
-            .then(response => response.data)
-  },
 
   getUsers(currentPage, pageSize) {
     return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-          .then(response => response.data)
-  },
-
-  getUser(id) {
-    return instance.get(`profile?${id}`)
           .then(response => response.data)
   },
 
@@ -43,5 +34,23 @@ export const usersAPI = {
   getFollow(id) {
     return instance.get(`follow/${id}`)
             .then(response => response.data)
+  }
+}
+
+export const profileAPI = {
+  getProfile(userId) {
+    return instance.get(`profile/${userId}`)
+            .then(response => response.data)
+  },
+
+  getStatus(userId) {
+    return instance.get(`profile/status/${userId}`)
+            .then(response => response.data)
+  },
+
+  updateStatus(newStatus) {
+    return instance.put(`profile/status`,{
+          status: newStatus
+        }).then(response => response.data)
   }
 }

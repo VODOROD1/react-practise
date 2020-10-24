@@ -2,45 +2,47 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import Profile from './Profile';
-import {getUserProfile} from '../../redux/profile-reducer.js';
+import {getUserProfile,getStatus,updateStatus} from '../../redux/profile-reducer.js';
 import { withRouter } from 'react-router-dom';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 class ProfileContainer extends React.Component {
 
   componentDidMount() {
+    
     let userId = this.props.match.params.userId;
     if(!userId) { // если userId не назначен, то по умолчанию 2
       userId = 2;
     }
     //  обращаемся к серверу
     this.props.getUserProfile(userId);
+    this.props.getStatus(userId)
+    
   }
 
   render() {
     
     return (
-        <Profile {...this.props} />
-        // profile={this.props.profile}
+        <Profile profile={this.props.profile} 
+                status={this.props.status} 
+                updateStatus={this.props.updateStatus} />
+        // {...this.props}
     )
   }
 }
 
 let mapStateToProps = (state) => ({
-  profile: state.profilePage.profile
+  profile: state.profilePage.profile,
+  status: state.profilePage.status
 })
 
-let mapDispatchToProp = (dispatch) => ({
-  getUserProfile
-})
+let mapDispatchToProp = {
+  getUserProfile,
+  getStatus,
+  updateStatus
+}
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProp),
-  withRouter,
-  withAuthRedirect
-)(ProfileContainer)
-
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-
-// используем специальный HOC, который позволяет получить доступ к параметрам URL
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
+  withRouter,           // HOC, который позволяет получить доступ к параметрам URL
+  // withAuthRedirect
+)(ProfileContainer);

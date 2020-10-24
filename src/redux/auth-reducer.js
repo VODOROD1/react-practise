@@ -14,11 +14,14 @@ let initialState = {
 const authReducer = (state = initialState, action) => {
   switch(action.type) {
     case SET_USER_DATA: {
-      return {
-        ...state,
-        ...action.data,
-        isAuth: true
+      if(action.data.userId && action.data.email && action.data.login) {
+        return {
+          ...state,
+          ...action.data,
+          isAuth: true
+        }
       }
+      return state;
     }
     default:
         return state;

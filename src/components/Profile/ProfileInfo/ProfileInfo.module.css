@@ -6,3 +6,7 @@
   height: 250px;
   width: 900px;
 }
+
+.statusSpan {
+  cursor: pointer;
+}
