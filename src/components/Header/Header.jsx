@@ -6,11 +6,11 @@ const Header = (props) => {
   return (
     <header className={s.header}>
       <img src='https://mostaql.hsoubcdn.com/uploads/201639-1469757735-Logo_Image_01.png' alt='' />
-      
       <div className={s.loginBlock}>
-        {props.isAuth ? <span className={s.login}>{props.login}</span> :
-          <NavLink className={s.login} to='/login'>
-            Login
+        {props.isAuth 
+          ? <div>{props.login} - <button onClick={props.logout}>Logout</button></div>
+          : <NavLink className={s.login} to='/login'>
+              Login
           </NavLink>
         }
       </div>

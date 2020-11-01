@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
 let initialState = {
   dialogs: [
@@ -27,16 +26,9 @@ const dialogsReducer = (state = initialState, action) => {
           messages: [
             ...state.messages, 
             { id: state.messages.length + 1, 
-              message: state.newMessageText
+              message: action.message
             }
           ],    // добавляем еще один элемент
-          newMessageText: '',
-        };
-    }
-    case UPDATE_NEW_MESSAGE_TEXT: {
-        return {
-          ...state,
-          newMessageText: action.newText
         };
     }
     default: 
@@ -44,16 +36,10 @@ const dialogsReducer = (state = initialState, action) => {
   }
 }
 
-export const addMessage = () => {
+export const addMessage = (newMessage) => {
   return {
-    type: ADD_MESSAGE
-  }
-}
-
-export const updateNewMessageText = (text) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text 
+    type: ADD_MESSAGE,
+    message: newMessage
   }
 }
 

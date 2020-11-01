@@ -12,8 +12,22 @@ export const authAPI = {
   me() {
     return instance.get('auth/me')
     .then(response => response.data)
+  },
+
+  login(email, password, rememberMe) {
+    return instance.post('auth/login', {
+      email, password, rememberMe
+    }).then(response => response.data)
+  },
+  logout() {
+    return instance.delete('auth/login')
+      .then(response => response.data) 
   }
 }
+
+// email (string) - valid confirmed user email address, which used during registration
+// password (string) - valid user password
+// rememberMe (bool) - if true, then session will not be expired after session finishing  
 
 export const usersAPI = {
 

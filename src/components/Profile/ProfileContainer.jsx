@@ -4,14 +4,18 @@ import {compose} from 'redux';
 import Profile from './Profile';
 import {getUserProfile,getStatus,updateStatus} from '../../redux/profile-reducer.js';
 import { withRouter } from 'react-router-dom';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 class ProfileContainer extends React.Component {
 
   componentDidMount() {
     
     let userId = this.props.match.params.userId;
-    if(!userId) { // если userId не назначен, то по умолчанию 2
-      userId = 2;
+    if(!userId) { 
+      userId = this.props.authorizedUserId;
+      if(!userId) {
+        this.props.history.push('/login');
+      }
     }
     //  обращаемся к серверу
     this.props.getUserProfile(userId);
@@ -20,7 +24,9 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
-    
+
+    console.log('RENDER PROFILE');
+
     return (
         <Profile profile={this.props.profile} 
                 status={this.props.status} 
@@ -30,10 +36,16 @@ class ProfileContainer extends React.Component {
   }
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state) => {
+
+  console.log('mapStateToProps PROFILE-CONTAINER'); // 
+
+  return {
   profile: state.profilePage.profile,
-  status: state.profilePage.status
-})
+  status: state.profilePage.status,
+  authorizedUserId: state.auth.userId,
+  isAuth: state.auth.isAuth
+}}
 
 let mapDispatchToProp = {
   getUserProfile,

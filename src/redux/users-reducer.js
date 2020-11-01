@@ -15,12 +15,18 @@ let initialState = {
   totalUsersCount: 200,
   currentPage: 2,
   isFetching: true,
-  followingInProgress: []
+  followingInProgress: [],
+  fake: 10
 };
 
 /////////////////////////////////////////////////////////////
 const usersReducer = (state = initialState, action) => {
   switch(action.type) {
+    case 'FAKE': {
+      return {
+        ...state, fake: state.fake + 1
+      }
+    }
     case FOLLOW: {
       return {
         ...state,
@@ -100,12 +106,13 @@ export const toggleIsFollowingProgress = (isFetching,id) => ({type: TOGGLE_IS_FO
 
 ///////////////////////////////////////////////////////
 // Далее идут thunk creators
-export const getUsers = (currentPage,pageSize) => {
+export const requestUsers = (page,pageSize) => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true));
+    dispatch(setCurrentPage(page));
 
     //  обращаемся к серверу
-    usersAPI.getUsers(currentPage, pageSize).then(data => {
+    usersAPI.getUsers(page, pageSize).then(data => {
         dispatch(toggleIsFetching(false));
         dispatch(setUsers(data.items));
         // setTotalUsersCount(data.totalCount);
