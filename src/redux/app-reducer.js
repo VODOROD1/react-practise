@@ -27,6 +27,7 @@ const appReducer = (state = initialState, action) => {
 export const setInitialized = () => ({
   type: SET_INITIALIZED
 })
+/////////////////////////////////////////////////////////////
 // Далее идут санки
 export const initialize = () => (dispatch) => {
   let resultPromise = dispatch(getAuthUserData());

@@ -25,6 +25,8 @@ export const Input = (props) => {
   )
 }
 
+
+
 // export const Input = ({input, meta, ...props}) => {
 
 //   let errorFlag = meta.touched && meta.error;

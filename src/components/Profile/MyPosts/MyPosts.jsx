@@ -26,17 +26,20 @@ const AddNewPostReduxForm = reduxForm({
 })(AddNewPostForm)
 
 const MyPosts = (props) => {
+  console.log('Render in MyPosts!');
+  console.log(props);
+  // const memoizedValue = React.useMemo(() => , [props]);
 
   const addPost = (formData) => {
     props.addPost(formData.newPost);
   }
 
-  let postsElements = props.profilePage.posts.map((post) => (<Post message={post.message} likesCount={post.likesCount} key={post.id} />));
+  let postsElements = props.posts.map((post) => (<Post message={post.message} likesCount={post.likesCount} key={post.id} />));
 
   return (
     <div className={s.postsBlock}>
       <h3>My posts</h3>
-      <AddNewPostReduxForm onSubmit={addPost}/>
+      <AddNewPostReduxForm onSubmit={addPost} />
       <div className={s.posts}>
         {postsElements}
       </div>

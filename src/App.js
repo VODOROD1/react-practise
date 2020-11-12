@@ -1,7 +1,9 @@
 import React from "react";
-import { Route, withRouter } from "react-router-dom";
+import { Route,withRouter,BrowserRouter } from "react-router-dom";
+import {Provider} from 'react-redux';
 import {compose} from 'redux';
 import "./App.css";
+import store from './redux/redux-store.js';       // импорт STORE
 import HeaderContainer from "./components/Header/HeaderContainer.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import ProfileContainer from "./components/Profile/ProfileContainer.jsx";
@@ -24,28 +26,30 @@ class App extends React.Component {
 
   render() {
     if(!this.props.initialized) {
-      return (<Preloader />)
+      return (
+            <Preloader />
+      )
     } else {
       return (
-        <div className="app-wrapper">
-          <HeaderContainer />
-          <Navbar />
-          <div className="app-wrapper-content">
-            <Route path='/dialogs'  key={1}
-                    render={() => <DialogsContainer 
-                        />}
-            />
-            <Route path='/profile/:userId?' key={2}
-                    render={() => <ProfileContainer 
-                        />}
-            />
-            <Route path='/news' key={3} render={() => <News />} />
-            <Route path='/music' key={4} render={() => <Music />} />
-            <Route path='/users' key={5} render={() => <UsersContainer />}/>
-            <Route path='/settings' key={6} render={() => <Settings />} />
-            <Route path='/login' key={7} render={() => <LoginContainer />} />
+          <div className="app-wrapper">
+            <HeaderContainer />
+            <Navbar />
+            <div className="app-wrapper-content">
+              <Route path='/dialogs'  key={1}
+                      render={() => <DialogsContainer 
+                          />}
+              />
+              <Route path='/profile/:userId?' key={2}
+                      render={() => <ProfileContainer 
+                          />}
+              />
+              <Route path='/news' key={3} render={() => <News />} />
+              <Route path='/music' key={4} render={() => <Music />} />
+              <Route path='/users' key={5} render={() => <UsersContainer />}/>
+              <Route path='/settings' key={6} render={() => <Settings />} />
+              <Route path='/login' key={7} render={() => <LoginContainer />} />
+            </div>
           </div>
-        </div>
       )
     }
   }

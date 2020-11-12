@@ -5,9 +5,9 @@ import {Input} from '../common/FormsControls/FormsControls';
 import {required} from '../../utils/validators/validators';
 import s from './Login.module.css';
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit,error}) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
         <Field component={Input} type='text' name='login' 
               placeholder='input login' validate={required}/>
@@ -19,9 +19,9 @@ const LoginForm = (props) => {
       <div>
         <Field component={Input} type='checkbox' name='rememberMe'/> remember me
       </div>
-      { props.error && 
+      { error && 
         <div className={s.formSummaryError}>
-          {props.error}
+          {error}
         </div>
       }
       <div>
@@ -45,31 +45,12 @@ const Login = (props) => {
   }
   return (
 
-      // props.isAuth 
-      //   ? (<Redirect to={'/profile/2'} />) 
-      //   : (<div>
-      //       <h1>LOGIN</h1>
-      //       <LoginReduxForm onSubmit={handleSubmit}/>
-      //     </div>)
-
       props.isAuth 
       ? (<Redirect to={props.currentURL} />) 
       : (<div>
           <h1>LOGIN</h1>
           <LoginReduxForm onSubmit={handleSubmit}/>
         </div>)
-
-      // <div>
-      //   <h1>LOGIN</h1>
-      //   <LoginReduxForm onSubmit={handleSubmit}/>
-      // </div>
-
-      // props.isAuth 
-      //   ? (<currentComponent />) 
-      //   : (<div>
-      //       <h1>LOGIN</h1>
-      //       <LoginReduxForm onSubmit={handleSubmit}/>
-      //     </div>)
 
   )
 }
@@ -79,7 +60,7 @@ export default Login;
 
 
 /////////////////////////////////////////////////////////////
-//                              Login : SomeTestLogin
+//                            Login : SomeTestLogin
 // email: vodorodo51@gmail.com
 // password: R6n1gAZ43K9
 /////////////////////////////////////////////////////////////

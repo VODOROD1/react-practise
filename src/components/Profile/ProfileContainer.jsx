@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
+import { withRouter } from 'react-router-dom';
 import Profile from './Profile';
 import {getUserProfile,getStatus,updateStatus} from '../../redux/profile-reducer.js';
-import { withRouter } from 'react-router-dom';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {getProfile,getStatusFromState,getUserId,getIsAuth} from './profile-selectors.js';
 
 class ProfileContainer extends React.Component {
 
@@ -24,9 +24,7 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
-
-    console.log('RENDER PROFILE');
-
+    // console.log('RENDER PROFILE');
     return (
         <Profile profile={this.props.profile} 
                 status={this.props.status} 
@@ -37,14 +35,12 @@ class ProfileContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-
-  console.log('mapStateToProps PROFILE-CONTAINER'); // 
-
+  // console.log('mapStateToProps PROFILE-CONTAINER'); // 
   return {
-  profile: state.profilePage.profile,
-  status: state.profilePage.status,
-  authorizedUserId: state.auth.userId,
-  isAuth: state.auth.isAuth
+    profile: getProfile(state),
+    status: getStatusFromState(state),
+    authorizedUserId: getUserId(state),
+    isAuth: getIsAuth(state)
 }}
 
 let mapDispatchToProp = {
@@ -58,3 +54,4 @@ export default compose(
   withRouter,           // HOC, который позволяет получить доступ к параметрам URL
   // withAuthRedirect
 )(ProfileContainer);
+

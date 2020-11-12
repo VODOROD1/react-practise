@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET-STATUS';
+const DELETE_POST = 'DELETE-POST';
 /////////////////////////////////////////////////////////////
 let initialState = {
   posts: [
@@ -31,6 +32,14 @@ const profileReducer = (state = initialState, action) => {
             }
           ]
         };
+    }
+    case DELETE_POST: {
+      return {
+        ...state,
+        posts: state.posts.filter((post) => {
+          return post.id !== action.postID
+        })
+      }
     }
     case UPDATE_NEW_POST_TEXT: {
         return {
@@ -62,6 +71,13 @@ export const addPost = (newPost) => {
   }
 }
 
+export const deletePost = (postID) => {
+  return {
+    type: DELETE_POST,
+    postID
+  }
+}
+
 export const updateNewPostText = (text) => {
   return {
     type: UPDATE_NEW_POST_TEXT, 
@@ -85,31 +101,25 @@ const setStatus = (status) => {
 
 // Далее идут санки
 export const getUserProfile = (userId) => {
-  return dispatch => {
-    profileAPI.getProfile(userId)
-            .then(data => {
-              dispatch(setUserProfile(data))
-            })
+  return async dispatch => {
+    let data = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(data))
   }
 }
 
 export const getStatus = (userId) => {
-  return dispatch => {
-    profileAPI.getStatus(userId)
-              .then(data => {
-                dispatch(setStatus(data))
-              })
+  return async (dispatch) => {
+    let data = await profileAPI.getStatus(userId);
+    dispatch(setStatus(data))
   }
 }
 
 export const updateStatus = (newStatus) => {
-  return dispatch => {
-    profileAPI.updateStatus(newStatus)
-              .then(data => {
-                if(data.resultCode) {
-                  dispatch(setStatus(data))
-                }
-              })
+  return async dispatch => {
+    let data = await profileAPI.updateStatus(newStatus);
+    if(data.resultCode) {
+      dispatch(setStatus(data))
+    }
   }
 }
 
